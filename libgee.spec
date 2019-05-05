@@ -4,15 +4,16 @@
 #
 Name     : libgee
 Version  : 0.20.1
-Release  : 6
+Release  : 7
 URL      : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.1.tar.xz
 Source0  : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.1.tar.xz
-Summary  : The GObject collection library
+Summary  : A collection library providing GObject-based interfaces and classes for commonly used data structures
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: libgee-lib
-Requires: libgee-data
-BuildRequires : gobject-introspection-dev
+Requires: libgee-data = %{version}-%{release}
+Requires: libgee-lib = %{version}-%{release}
+Requires: libgee-license = %{version}-%{release}
+BuildRequires : buildreq-gnome
 BuildRequires : pkgconfig(gio-2.0)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(gobject-2.0)
@@ -32,9 +33,10 @@ data components for the libgee package.
 %package dev
 Summary: dev components for the libgee package.
 Group: Development
-Requires: libgee-lib
-Requires: libgee-data
-Provides: libgee-devel
+Requires: libgee-lib = %{version}-%{release}
+Requires: libgee-data = %{version}-%{release}
+Provides: libgee-devel = %{version}-%{release}
+Requires: libgee = %{version}-%{release}
 
 %description dev
 dev components for the libgee package.
@@ -43,10 +45,19 @@ dev components for the libgee package.
 %package lib
 Summary: lib components for the libgee package.
 Group: Libraries
-Requires: libgee-data
+Requires: libgee-data = %{version}-%{release}
+Requires: libgee-license = %{version}-%{release}
 
 %description lib
 lib components for the libgee package.
+
+
+%package license
+Summary: license components for the libgee package.
+Group: Default
+
+%description license
+license components for the libgee package.
 
 
 %prep
@@ -57,7 +68,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1518392966
+export SOURCE_DATE_EPOCH=1557015279
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -69,8 +87,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1518392966
+export SOURCE_DATE_EPOCH=1557015279
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/libgee
+cp COPYING %{buildroot}/usr/share/package-licenses/libgee/COPYING
 %make_install
 
 %files
@@ -92,3 +112,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/lib64/libgee-0.8.so.2
 /usr/lib64/libgee-0.8.so.2.6.1
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libgee/COPYING
