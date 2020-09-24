@@ -4,7 +4,7 @@
 #
 Name     : libgee
 Version  : 0.20.3
-Release  : 10
+Release  : 11
 URL      : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.3.tar.xz
 Source0  : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.3.tar.xz
 Summary  : The GObject collection library
