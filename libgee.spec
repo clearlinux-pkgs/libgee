@@ -4,7 +4,7 @@
 #
 Name     : libgee
 Version  : 0.20.6
-Release  : 16
+Release  : 17
 URL      : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.6.tar.xz
 Source0  : https://download.gnome.org/sources/libgee/0.20/libgee-0.20.6.tar.xz
 Summary  : The GObject collection library
@@ -69,7 +69,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663598100
+export SOURCE_DATE_EPOCH=1664157235
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -89,7 +89,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1663598100
+export SOURCE_DATE_EPOCH=1664157235
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libgee
 cp %{_builddir}/libgee-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libgee/caeb68c46fa36651acf592771d09de7937926bb3 || :
